@@ -63,6 +63,8 @@ This study builds an **empirical trading alpha** on top of the theoretical found
 
 **Continuous Futures Construction:** Roll-over applied immediately before expiration, with price back-adjustment.
 
+**Purpose:** To ensure maximum model robustness and eliminate execution-level data dependencies, this study intentionally restricts the feature space strictly to OHLC price data. This design programmatic controls for the risk of missing or delayed alternative data (e.g., Open Interest) during live execution, demonstrating that premium alpha can be extracted solely through pure statistical price structures. 
+
 ---
 
 ## 3. Methodology
