@@ -256,7 +256,7 @@ OOS start point fine-tuning also consistent:
 | Crude Oil | Energy commodity | < 0, p > 0.5 | ✗ Failed |
 | Gold | Safe-haven asset | < 0, p > 0.5 | ✗ Failed |
 
-**Interpretation:** The alpha is specialized for **mean-reversion inefficiency in U.S. equity indices**. It does not generalize to other asset classes with different market mechanisms.
+**Interpretation:** The alpha is for **mean-reversion inefficiency in U.S. equity indices**. It could not generalized to other asset classes with different market mechanisms.
 
 ---
 
@@ -340,20 +340,14 @@ The two models are not competitive but **complementary**:
 
 ### 7.3 Meaning of Asset Class Specialization
 
-The fact that the alpha does not work on all assets is **not a weakness but a characteristic of true alpha**.
-
-- Fake alpha: Works moderately on all markets (= just noise)
-- True alpha: Captures specific patterns in specific markets, does not generalize elsewhere
-
 Our alpha captures the **mean-reversion inefficiency in U.S. equity indices**. Different market mechanisms operate on crude oil (supply/demand shock-based) or gold (safe-haven demand-based).
 
 ### 7.4 Lessons Learned
 
 1. **Value of simplicity** — Complex models break down in OOS
-2. **In-sample trap** — IS Sharpe 1.2+ may be an illusion
-3. **Noise removal ≠ improvement** — Risk of ignoring shield effect
-4. **Per-market adaptation is also overfitting** — Confirmed 0.52 Sharpe difference via WF
-5. **Acknowledging asset class specialization** — Honest academic approach
+2. **Noise removal ≠ improvement** — Risk of ignoring shield effect
+3. **Per-market adaptation is also overfitting** — Confirmed 0.52 Sharpe difference via WF
+4. **Acknowledging asset class specialization** — Limitation
 
 ---
 
@@ -400,15 +394,18 @@ Our alpha captures the **mean-reversion inefficiency in U.S. equity indices**. D
 
 ```
 project/
-├── README.md                  # This document
-├── final_model.py             # v1 + v4 integrated final model
+├── README.md                          # This document
+├── Adaptive Market Model:A,B,C.md     # Hypothesis Test 
+├── v1_model_description.md            # Rule-based Model v1 (Binary Regime Classifer)
+├── v4_model_description.md            # Rule-based Model v4 (5-Regime Classifier)
+├── final_model.py                     # v1 + v4 integrated final model
 └── validation/
-    ├── oos_test.py            # IS/OOS split verification
-    ├── oos_robustness.py      # Rolling Origin randomness verification
-    └── wf_per_product.py      # Walk-Forward per-market verification
+    ├── forward_validation.py          # IS / OOS / Rolling Origin Validations
+    ├── validation/oos_robustness.py   # Model Robustness Validation    
+    └── wf_per_product.py              # Walk-Forward per-market verification
 ```
 
-Data is downloaded separately from API and stored locally (not included in repository).
+Data is downloaded separately from the Massive Rest API and stored locally (not included in repository).
 
 ### Execution
 
@@ -416,8 +413,8 @@ Data is downloaded separately from API and stored locally (not included in repos
 # Run main model
 python final_model.py
 
-# OOS verification
-python validation/oos_test.py
+# IS / OOS / Rolling Origin Validations
+python forward_validation.py
 
 # Randomness verification
 python validation/oos_robustness.py
