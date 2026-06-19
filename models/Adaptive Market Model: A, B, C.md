@@ -67,9 +67,9 @@ The Hurst Exponent was intentionally excluded to prevent multicollinearity and i
 - Concept: A complete asset-allocation framework that not only avoids trends but exploits them and backed by professional risk management.
   
 - Entry Rules:
-  a. Reversion: $VR_{16} < 0.95$ AND $VR_{30} < 0.95$ $\rightarrow$ BB $\pm2\sigma$ Breakout.
-  b. Core Momentum: $VR_{16} > 1.05$ AND $VR_{30} > 1.05$ $\rightarrow$ 10-bar Directional Chase.
-  c. Momentum Assist: $BBW_{\text{Expansion}}$ AND $\text{Band Walking}$ $\rightarrow$ Trend Following.
+  - a. Reversion: $VR_{16} < 0.95$ AND $VR_{30} < 0.95$ $\rightarrow$ BB $\pm2\sigma$ Breakout.
+  - b. Core Momentum: $VR_{16} > 1.05$ AND $VR_{30} > 1.05$ $\rightarrow$ 10-bar Directional Chase.
+  - c. Momentum Assist: $BBW_{\text{Expansion}}$ AND $\text{Band Walking}$ $\rightarrow$ Trend Following.
 
 - Exit Rules: **Reversion:** Opposite band touch or Fixed Stop-loss (ATR * 4).
   - **Trend:** Trailing Stop (ATR * 3) or Trend signal breakdown.
@@ -84,6 +84,38 @@ The backtest on U.S. Equity Index Futures 4-hour bars (2018-2026) yielded a perf
 | Model A  | Simple BB ±2σ Reversion | -0.028 |
 | Model B  | Model A + VR Filters (VR < 0.95) | 0.488 |
 | Model C  | Model B + Momentum + ATR Stops | 0.965 |
+
+
+# 5. Statistical Significance
+
+**Hypothesis Framework:**
+
+- H₀ (Null): Per-trade mean return = 0 (no alpha, EMH holds)
+- H₁ (Alternative): Mean return > 0 (positive alpha)
+- Test: One-sided t-test
+- Significance levels: p < 0.10 (marginal), p < 0.05 (significant), p < 0.01 (highly significant)
+
+**Results:**
+
+| Strategy | Sharpe | t-statistic | p-value | Significance |
+|:---------|-------:|------------:|--------:|--------------|
+| Model A | -0.028 | -0.08 | 0.53 | Not significant |
+| Model B | 0.488 | 1.43 | 0.077 | Marginal (p < 0.10) |
+| Model C | 0.965 | 2.76 | 0.003 | Highly significant (p < 0.01) |
+
+**Interpretation:**
+
+- Model A: No statistical evidence of alpha — random walk hypothesis holds.
+- Model B: First quantitative evidence that VR provided meaningful regime information beyond price structure.
+- Model C: Strong statistical rejection of EMH for this strategy on this asset class.
+
+The transition from p = 0.53 → 0.077 → 0.003 mathematically validated the monotonic improvement hypothesis stated in Section 1.
+
+**Test Assumptions and Limitations:**
+
+- Per-trade returns assumed approximately normal. (verified via Q-Q plot)
+- Trade independence enforced by single-position constraint.
+- p-values are in-sample; OOS robustness verified separately.
 
 
 # Key Findings
