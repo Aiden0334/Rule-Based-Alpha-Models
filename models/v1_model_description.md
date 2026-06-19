@@ -1,40 +1,40 @@
-## V1 Rule-Based Alpha Model
+# V1 Rule-Based Alpha Model
 
-# Regime
+## Regime
 
 
 Binary Regime Classifier
 Variance Ratio based
 
 
-# Alpha Logic
+## Alpha Logic
 
 
 Mean Reversion
 Momentum
 
 
-# Volatility Filter
+## Volatility Filter
 
 
 ATR
 Bollinger Band Width Expansion
 
 
-# Risk Management
+## Risk Management
 
 
 ATR-based Stop Loss
 Trailing Exit
 
 
-# Timeframe
+## Timeframe
 
 
 4-hour bars
 
 
-# Markets
+## Markets
 
 
 ES (E-mini S&P 500)
@@ -43,7 +43,7 @@ YM (E-mini Dow Jones)
 RTY (E-mini Russell 2000)
 
 
-# Verified Performance
+## Verified Performance
 
 MetricIn-Sample (2018-2023)Out-of-Sample (2024-2026)Sharpe0.9630.973CAGR24.09%22.56%MDD-16.5%-22.7%
 
