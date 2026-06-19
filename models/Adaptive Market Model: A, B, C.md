@@ -1,4 +1,4 @@
-# Core Hypothesis & Theoretical Background
+# 1. Core Hypothesis & Theoretical Background
 
 This framework is designed to empirically test the Adaptive Market Hypothesis. The core objective is to disprove the strict efficient market hypothesis by demonstrating the statistically significant alpha can be extracted when the market deviates from a random walk. 
 
@@ -19,7 +19,7 @@ If the Variance Ratio (VR) contains genuine predictive information about market 
 **VR > 1 (Trend Dominant):** Volatility increases faster than a random walk; prices tend to persist in the current direction. 
 
 
-# Technical Formulations
+# 2. Technical Formulations
 
 ## 2.1. Variance Ratio (VR) 
 
@@ -28,3 +28,24 @@ Measured at q = 16 (approx. 3days) and q = 30 (approx. 5 days) on 4-hour bars:
 $$VR(q) = \frac{Var[r_q]}{q \cdot Var[r_1]}$$
 
 ## 2.2 Bollinger Bands & Width (BBW)
+
+$$\text{Upper, Lower} = MA(20) \pm 2 \cdot \sigma(20)$$
+
+$$BBW(t) = \frac{\text{Upper} - \text{Lower}}{MA(20)}$$
+
+
+# 3. Step by Step Strategy Evolution
+
+## 3.1 Model A: Simple Mean-Reversion (The Baseline)
+
+
+
+
+
+
+
+
+
+
+
+
