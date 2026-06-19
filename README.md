@@ -398,6 +398,7 @@ project/
 ├── Adaptive Market Model:A,B,C.md     # Hypothesis Test 
 ├── v1_model_description.md            # Rule-based Model v1 (Binary Regime Classifer)
 ├── v4_model_description.md            # Rule-based Model v4 (5-Regime Classifier)
+├── features_definition.md             # Features
 ├── final_model.py                     # v1 + v4 integrated final model
 └── validation/
     ├── forward_validation.py          # IS / OOS / Rolling Origin Validations
