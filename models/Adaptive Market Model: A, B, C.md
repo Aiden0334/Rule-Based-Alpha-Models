@@ -38,14 +38,56 @@ $$BBW(t) = \frac{\text{Upper} - \text{Lower}}{MA(20)}$$
 
 ## 3.1 Model A: Simple Mean-Reversion (The Baseline)
 
+- Concept: A naive, pure price-structure model operating under the assumption that the market is always mean-reverting.
+  
+- Entry Rule: Enter Long when price touches the Lower Bollinger Band ($-2\sigma$); Enter Short when price touches the Upper Bollinger Band($+2\sigma$).
+  
+- Exit Rule: Touch the opposite band.
+  
+- Flaw: Completely exposed to "band walking" during strong trending regimes and led to catastrophic losses in persistent markets.
+
+## 3.2 Model B: VR-Filtered Mean-Reversion
+
+- Concept: Introduces the Variance Ratio as a structural regime filter to eliminate false reversion signals during trends.
+  
+- Entry Rule: Execute the same Bollinger Band breakout entry **ONLY IF** both short-term and long-term VR values indicate a strong mean-reverting regime:
+  
+  $$VR_{16} < 0.95 \quad \text{AND} \quad VR_{30} < 0.95$$
+  
+- Exit Rule : Touch the opposite band.
+  
+- Significance: Filters out toxic trend intervals and convert a losing baseline into a statistically viable strategy.
+
+**Note on Feature Selection: Variance Ratio vs Hurst Exponent**
+
+The Hurst Exponent was intentionally excluded to prevent multicollinearity and information redundancy. Since both metrics mathematically capture identical market dynamics and evaluate the speed of variance diffusion to identify random walks versus structural regimes, then layering them would result in severe signal collision. To maintain a clean and high-signal-to-noise ratio within our rule-based architecture, we exclusively deployed the Variance Ratio, which provided a more numerical and stable regime classification framework. 
+
+## 3.3 Model C (Named Model V1) 
+
+- Concept: A complete asset-allocation framework that not only avoids trends but exploits them and backed by professional risk management.
+  
+- Entry Rules:
+  a. Reversion: $VR_{16} < 0.95$ AND $VR_{30} < 0.95$ $\rightarrow$ BB $\pm2\sigma$ Breakout.
+  b. Core Momentum: $VR_{16} > 1.05$ AND $VR_{30} > 1.05$ $\rightarrow$ 10-bar Directional Chase.
+  c. Momentum Assist: $BBW_{\text{Expansion}}$ AND $\text{Band Walking}$ $\rightarrow$ Trend Following.
+
+- Exit Rules: **Reversion:** Opposite band touch or Fixed Stop-loss (ATR * 4).
+  - **Trend:** Trailing Stop (ATR * 3) or Trend signal breakdown.
+
+ 
+# 4. Empirical Verification Metrics
+
+The backtest on U.S. Equity Index Futures 4-hour bars (2018-2026) yielded a perfect monotonic validation of our core hypothesis: 
+
+| Strategy | Description | Sharpe Ratio |
+|:---------|:------------|------------:|
+| Model A  | Simple BB ±2σ Reversion | -0.028 |
+| Model B  | Model A + VR Filters (VR < 0.95) | 0.488 |
+| Model C  | Model B + Momentum + ATR Stops | 0.965 |
 
 
+# Key Findings
 
+**1. Validation of VR:** The dramatic shift in Sharpe froom Model A (-0.028) to Model B (0.488) mathematically proved that the Variance Ratio successfully diferentiaited between random noise and mean-reverting inefficiencies. 
 
-
-
-
-
-
-
-
+**2. The Necessity of Symmetry:** Model C achieved its premium alpha (Sharpe 0.965) because it stopped fighting trends and instead turned them into an independent source of return. This model was finalized as Rule-Based-Alpha-Model V1 for low-to-medium volatility index markets. 
