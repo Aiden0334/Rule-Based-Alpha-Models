@@ -2,6 +2,8 @@
 
 ---
 
+# Phase 1
+
 ## Abstract
 
 This study verifies mean-reversion and momentum alpha on U.S. equity index futures 4-hour bars. We classify market regimes leveraging the Variance Ratio (VR), used Bollinger Band breakouts as mean-reversion entry signals, and used BBW Expansion + Walking as momentum entry signals. Two model variants (v1: general type, v4: selective type) were adaptively applied according to market volatility.
